@@ -7,6 +7,7 @@ async function get() {
             't.task_id',
             't.task_description',
             't.task_notes',
+            't.task_completed',
             'p.project_name',
             'p.project_description'
         )
@@ -21,11 +22,11 @@ async function get() {
 }
 
 async function create(task) {
-    const [newId] = await db('tasks').insert(task)
+    const [ newId ] = await db('tasks').insert(task)
 
     const newTask = await db('tasks').where('task_id', newId)
 
-    const result = newTask.map((row) => {
+    const result = newTask.map(row => {
         return {
             ...row,
             task_completed: row.task_completed ? true : false
@@ -36,5 +37,5 @@ async function create(task) {
 
 module.exports = {
     get,
-    create,
+    create
 }

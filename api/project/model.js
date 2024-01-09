@@ -27,7 +27,19 @@ async function create(proj) {
     return result[0]
 }
 
+async function getById(id) {
+    try {
+        const row = await db('projects')
+            .where('project_id', id)
+        return (row)
+    } catch (error) {
+        return
+    }
+
+}
+
 module.exports = {
     get,
     create,
+    getById,
 }
